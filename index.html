@@ -706,7 +706,7 @@ if(pref==="d"&&auto){var v=document.querySelector('meta[name=viewport]');if(v)v.
   <div class="soon">
     <article class="sc" style="--ac:#1F3FD1"><div class="sil cut"><img src="img/cg_b.6f0ea991.webp" alt="Lata de Candongueiro Gin Branco, 700 ml" decoding="async" loading="lazy"><span>Novo · 25.000 Kz</span></div><div><h3>Candongueiro Gin Branco</h3><p class="tg">Refrescância na melhor forma, para dias de sol e gin tónico com muito gelo.</p><p>Lata 700 ml · 37,5% vol · sem açúcar.</p><div class="row"><b class="pr">25.000 Kz</b><button class="mini" data-act="add" data-id="cand-b">Juntar ao carrinho</button><a class="ig" href="https://www.candongueiro.com/" target="_blank" rel="noopener">candongueiro.com</a></div></div></article>
     <article class="sc" style="--ac:#22A7D8"><div class="sil cut"><img src="img/cg_a.932bd30c.webp" alt="Lata de Candongueiro Gin Azul, 700 ml" decoding="async" loading="lazy"><span>Novo · 25.000 Kz</span></div><div><h3>Candongueiro Gin Azul</h3><p class="tg">Sabor com personalidade, para a noite: neat, com tónica seca ou em cocktails.</p><p>Lata 700 ml · 37,5% vol · sem açúcar.</p><div class="row"><b class="pr">25.000 Kz</b><button class="mini" data-act="add" data-id="cand-a">Juntar ao carrinho</button><a class="ig" href="https://www.instagram.com/candongueiro.gin/" target="_blank" rel="noopener">@candongueiro.gin</a></div></div></article>
-    <article class="sc" style="--ac:#B5651D"><div class="sil "><img src="img/pdc.ca787c78.webp" alt="Garrafa de Pau de Cabinda Gin" decoding="async" loading="lazy"><span>Novo · 25.000 Kz</span></div><div><h3>Pau de Cabinda Gin</h3><p class="tg">Single botanical: o pau de Cabinda, cor âmbar e carácter angolano.</p><div class="row"><b class="pr">25.000 Kz</b><button class="mini" data-act="add" data-id="pdc">Juntar ao carrinho</button><a class="ig" href="https://www.instagram.com/axi.gin/" target="_blank" rel="noopener">@axi.gin</a></div></div></article>
+    <article class="sc" style="--ac:#B5651D"><div class="sil "><img src="img/pdc.ca787c78.webp" alt="Garrafa de 500 ml de Pau de Cabinda Gin" decoding="async" loading="lazy"><span>Novo · 25.000 Kz</span></div><div><h3>Pau de Cabinda Gin</h3><p class="tg">Single botanical: o pau de Cabinda, cor âmbar e carácter angolano.</p><p>Garrafa de 500 ml.</p><div class="row"><b class="pr">25.000 Kz</b><button class="mini" data-act="add" data-id="pdc">Juntar ao carrinho</button><a class="ig" href="https://www.instagram.com/axi.gin/" target="_blank" rel="noopener">@axi.gin</a></div></div></article>
   </div>
 </section>
 
@@ -882,7 +882,7 @@ const P=[
 ["prenda","Clássico em caixa de oferta","Garrafa 750 ml + caixa AXI","classico",27900,0,"cl2","new","garrafa"],
 ["prenda-cx","Caxinde em caixa de oferta","Garrafa 750 ml + caixa AXI","caxinde",29900,0,"cx2","","garrafa"],
 ["prenda-fl","Flerte em caixa de oferta","Garrafa 750 ml + caixa AXI","flerte",29900,0,"fl2","","garrafa"],
-["pdc","Pau de Cabinda Gin","Single botanical · pau de Cabinda","novos",25000,0,"pdc","new","garrafa"],
+["pdc","Pau de Cabinda Gin","Garrafa 500 ml · single botanical, pau de Cabinda","novos",25000,0,"pdc","new","garrafa"],
 ["cand-b","Candongueiro Gin Branco","Lata 700 ml · 37,5% vol · sem açúcar","novos",25000,0,"cg_b","new","garrafa"],
 ["cand-a","Candongueiro Gin Azul","Lata 700 ml · 37,5% vol · sem açúcar","novos",25000,0,"cg_a","new","garrafa"]
 ].map(([id,n,sub,c,p,o,img,tag,tipo])=>({id,n,sub,c,p,o,img,tag,tipo,off:o?Math.round((1-p/o)*100):0}));
@@ -1175,7 +1175,7 @@ renderExps();renderCal();renderSlots();
   ["KizuaJá","#ED1C24","#fff","Entregas com energia em Luanda, todos os dias das 10h às 22h","Entregas com energia","#produtos","head",""],
   ["Candongueiro Gin","#1F3FD1","#fff","Mais que um gin, um movimento. Em lata de 700 ml, Branco e Azul","Gin em lata de 700 ml","https://www.candongueiro.com/","cg_b","fit"],
   ["AXI Gin School","#1F8C97","#fff","Provas, masterclasses e cocktails na casa da AXI, de quinta a domingo","Marca a tua sessão","#school","ig6",""],
-  ["Pau de Cabinda Gin","#B5651D","#fff","Single botanical angolano, cor âmbar. Novo na loja por 25.000 Kz","Novo na loja","#novidades","pdc",""],
+  ["Pau de Cabinda Gin","#B5651D","#fff","Single botanical angolano, em garrafa de 500 ml. Novo por 25.000 Kz","Novo na loja","#novidades","pdc",""],
   ["EventBoxAngola","#FFD600","#141414","Aplicações, IA e soluções para empresas. A casa da KizuaJá","Apps e IA à medida","https://www.eventboxangola.ao/","eb_cube","fit"]];
   const bar=$("#adbar"),box=$("#adv"),dots=$("#advdots");
   box.innerHTML=ADS.map((a,i)=>{const ext=a[5][0]!=="#";return `<a class="ad" href="${a[5]}" ${ext?'target="_blank" rel="noopener"':`data-act="go" data-id="${a[5]}"`} tabindex="-1" style="--ac:${a[1]};--at:${a[2]}"><span class="av${a[7]==="fit"?" fit":""}">${a[6]?`<img src="${IMG[a[6]]}" alt="" decoding="async">`:`<em>${a[7]}</em>`}</span><span class="tx"><b>${a[0]}</b><span class="lg">${a[3]}</span><span class="sm">${a[4]}</span></span><i>${ext?"Visitar":"Ver"} <u>→</u></i></a>`}).join("");
