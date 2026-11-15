@@ -603,6 +603,9 @@ header.top{top:calc(env(safe-area-inset-top,0px) + var(--adh))}
 .mob .adv .ad i{margin-left:auto;font-size:.72rem;padding:6px 11px}
 section.block{scroll-margin-top:calc(110px + var(--adh))}#marcar{scroll-margin-top:calc(130px + var(--adh))}
 .mob section.block{scroll-margin-top:calc(112px + var(--adh))}
+/* Gin School: alambiques como marca de água esbatida */
+.school .intro::before{content:"";position:absolute;inset:0;background:url(img/alambiques.95ce1302.webp) 45% 22%/cover no-repeat;opacity:.3;filter:grayscale(.3) contrast(1.08);-webkit-mask-image:linear-gradient(105deg,rgba(0,0,0,.45) 0%,#000 65%);mask-image:linear-gradient(105deg,rgba(0,0,0,.45) 0%,#000 65%);pointer-events:none}
+.school .intro>*{position:relative;z-index:1}
 </style>
 <script>
 /* versão telemóvel: abre sozinha em telemóveis; o rodapé deixa trocar */
