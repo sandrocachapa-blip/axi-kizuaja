@@ -536,6 +536,39 @@ header.top{background:rgba(246,243,236,.93)}
 /* animações contínuas paradas fora do ecrã */
 .seal:not(.live) .medimg,.glassbox:not(.live) *{animation:none!important}
 .gb-bottle,.gb-garn,.stage .bottle{will-change:transform}
+
+/* ===== faixa de publicidade no topo ===== */
+.adbar{background:var(--ink);color:#fff;font-size:.8rem;border-bottom:3px solid transparent;border-image:linear-gradient(90deg,var(--red) 0 60%,var(--yellow) 60% 100%) 1}
+.adbar .wrap{display:flex;align-items:center;gap:16px;padding-block:0;min-height:38px}
+.adv{position:relative;flex:1;min-width:0;height:38px;overflow:hidden}
+.adv .ad{position:absolute;inset:0;display:flex;align-items:center;gap:10px;color:#fff;text-decoration:none;opacity:0;transform:translateY(100%);transition:transform .55s cubic-bezier(.2,.8,.2,1),opacity .4s;pointer-events:none;white-space:nowrap}
+.adv .ad.on{opacity:1;transform:none;pointer-events:auto}
+.adv .ad.out{opacity:0;transform:translateY(-100%)}
+.adv .ad b{flex:none;font-size:.68rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:4px 10px;border-radius:99px}
+.adv .ad span{min-width:0;overflow:hidden;text-overflow:ellipsis;opacity:.92}
+.adv .ad .sm{display:none}
+.adv .ad i{flex:none;font-style:normal;font-weight:700;color:var(--yellow);opacity:.95}
+.adv .ad:hover span{opacity:1;text-decoration:underline}
+.advdots{display:flex;gap:5px;flex:none}
+.advdots span{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.3);transition:background .3s,width .3s}
+.advdots span.on{background:var(--yellow);width:14px;border-radius:99px}
+.adbar .r{flex:none;gap:14px;white-space:nowrap;padding-left:16px;border-left:1px solid rgba(255,255,255,.18)}
+.adbar .r label{display:flex;align-items:center;gap:6px}
+.adbar select{background:#2a2a2a;color:#fff;border:0;border-radius:6px;padding:4px 6px;font:600 .78rem Montserrat,sans-serif}
+@media (max-width:980px){.adbar .r a{display:none}.adv .ad .lg{display:none}.adv .ad .sm{display:inline}}
+@media (max-width:620px){.advdots{display:none}.adv .ad i{display:none}.adbar .r{padding-left:10px}.adbar .r label{font-size:0}.adbar select{font-size:.74rem}}
+.mob .bar0.adbar{display:block}
+.mob .adbar .wrap{min-height:34px;gap:10px}.mob .adv{height:34px}
+.mob .adv .ad .lg{display:none}.mob .adv .ad .sm{display:inline}
+.mob .adv .ad i,.mob .advdots{display:none}
+.mob .adbar .r{padding-left:10px}.mob .adbar .r a{display:none}.mob .adbar .r label{font-size:0}.mob .adbar select{font-size:.74rem}
+@media (prefers-reduced-motion:reduce){.adv .ad{transition:opacity .3s;transform:none!important}}
+.duo .pics .stack.photo{padding:8px 8px 10px;cursor:zoom-in;font:inherit;color:inherit;width:92%;transition:transform .3s}
+.duo .pics .stack.photo:hover{transform:translateY(-4px) rotate(-1deg)}
+.duo .pics .stack.photo img{filter:none;border-radius:9px;display:block;aspect-ratio:1}
+.mob .adbar .r{display:none}.mob .adv .ad i{display:inline;margin-left:auto}.mob .adv .ad{gap:8px;font-size:.76rem}.mob .adv .ad b{font-size:.6rem;padding:3px 8px}
+.drawer #zl{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:.86rem;font-weight:600;margin-bottom:6px}
+.drawer #zl select{border:1px solid var(--line);border-radius:8px;padding:6px 8px;background:#fff;color:var(--fg);font:600 .84rem Montserrat,sans-serif}
 </style>
 <script>
 /* versão telemóvel: abre sozinha em telemóveis; o rodapé deixa trocar */
@@ -569,8 +602,10 @@ if(pref==="d"&&auto){var v=document.querySelector('meta[name=viewport]');if(v)v.
   </div>
 </div>
 
-<div class="bar0"><div class="wrap"><em>AXI × KizuaJá · O gin de Angola, entregue com energia.</em>
-  <div class="r"><label>Entregar em <select id="zona" aria-label="Zona de entrega"><option>Talatona</option><option>Ilha do Cabo</option><option>Kilamba</option><option>Maianga</option><option>Ingombota</option><option>Benfica</option><option>Viana</option></select></label><a href="#rodape">Ajuda</a><a href="#rodape">Contacto</a></div>
+<div class="bar0 adbar" id="adbar"><div class="wrap">
+  <div class="adv" id="adv" aria-label="As marcas desta loja"></div>
+  <div class="advdots" id="advdots" aria-hidden="true"></div>
+  <div class="r"><label id="zl">Entregar em <select id="zona" aria-label="Zona de entrega"><option>Talatona</option><option>Ilha do Cabo</option><option>Kilamba</option><option>Maianga</option><option>Ingombota</option><option>Benfica</option><option>Viana</option></select></label><a href="#rodape">Ajuda</a><a href="#rodape">Contacto</a></div>
 </div></div>
 
 <header class="top">
@@ -652,7 +687,7 @@ if(pref==="d"&&auto){var v=document.querySelector('meta[name=viewport]');if(v)v.
         <div><h4>Medalha de Prata 2026</h4><p>AXI Clássico, Spirits Selection by Concours Mondial de Bruxelles 2026.</p><p class="also">E ainda o Certificado de Bebida Sensação na Wine Vision by Open Balkan, Belgrado, 2024. <a href="https://angop.ao/noticias/economia/marca-angolana-de-bebida-axilwanda-destaca-se-na-feira-internacional-do-vinho-na-servia/" target="_blank" rel="noopener">Notícia ANGOP →</a></p><button class="lnkb" data-act="premio">Ver a medalha na garrafa →</button></div></div>
       <div class="cta" style="display:flex;gap:12px;flex-wrap:wrap"><a class="btn y" href="#produtos">Encomendar agora <svg class="i"><use href="#i-arrow"/></svg></a><a class="lnk" href="https://www.axilwanda.com/" target="_blank" rel="noopener">axilwanda.com</a></div>
     </div>
-    <div class="pics"><img class="m" src="img/mascot.bcff9574.webp" alt="Mascote KizuaJá a correr com a mochila de entregas" decoding="async" loading="lazy"><div class="stack"><img src="img/trio.15d59457.webp" alt="As três garrafas AXI Lwanda" decoding="async" loading="lazy"><span>Clássico · Caxinde · Flerte</span></div></div>
+    <div class="pics"><img class="m" src="img/mascot.bcff9574.webp" alt="Mascote KizuaJá a correr com a mochila de entregas" decoding="async" loading="lazy"><button class="stack photo" data-act="foto" data-id="trio26_g" data-c="AXI Lwanda · Medalha de Prata no Spirits Selection by Concours Mondial de Bruxelles 2026" aria-label="Ampliar a foto das três garrafas AXI Lwanda com a medalha de prata 2026"><img src="img/trio26.6810b33e.webp" alt="As três garrafas AXI Lwanda, Caxinde, Clássico e Flerte, com a Medalha de Prata Spirits Selection 2026" decoding="async" loading="lazy"><span>Medalha de Prata 2026</span></button></div>
   </div>
 </section>
 
@@ -796,7 +831,7 @@ if(pref==="d"&&auto){var v=document.querySelector('meta[name=viewport]');if(v)v.
 
 <script>
 const $=s=>document.querySelector(s), RM=matchMedia("(prefers-reduced-motion:reduce)").matches;
-const IMG={"glass_base": "img/glass_base.c9f62e9f.webp", "rim_limao": "img/rim_limao.89bd5a46.webp", "classico": "img/classico.bf2eef23.webp", "caxinde": "img/caxinde.ffaaec9a.webp", "flerte": "img/flerte.ae9e9256.webp", "trio": "img/trio.15d59457.webp", "c1": "img/c1.10a83ad7.webp", "c2": "img/c2.b42dd4f9.webp", "c3": "img/c3.5b4fa338.webp", "a1": "img/a1.a4a70a7c.webp", "a2": "img/a2.592847c1.webp", "a3": "img/a3.8fb1a2f0.webp", "cl2": "img/cl2.5a3e8b43.webp", "cx2": "img/cx2.61248b0c.webp", "fl2": "img/fl2.b9e78716.webp", "limao": "img/limao.ed2b7088.webp", "morangos": "img/morangos.5172e6d0.webp", "caxinde_f": "img/caxinde_f.c838f99d.webp", "uvas": "img/uvas.b97e3dd3.webp", "frutas": "img/frutas.a9eedf11.webp", "ig1": "img/ig1.a2da9f99.webp", "ig3": "img/ig3.6e167472.webp", "ig6": "img/ig6.dac5f52d.webp", "ig7": "img/ig7.da95d457.webp", "ig11": "img/ig11.53db9177.webp", "premio": "img/premio.f09eb09a.webp", "pdc": "img/pdc.ca787c78.webp", "fatia_limao": "img/fatia_limao.4ed145fe.webp", "fatia_laranja": "img/fatia_laranja.1fedb482.webp", "bagi": "img/bagi.964a5ba4.webp", "cg_b": "img/cg_b.6f0ea991.webp", "cg_a": "img/cg_a.932bd30c.webp"};
+const IMG={"glass_base": "img/glass_base.c9f62e9f.webp", "rim_limao": "img/rim_limao.89bd5a46.webp", "classico": "img/classico.bf2eef23.webp", "caxinde": "img/caxinde.ffaaec9a.webp", "flerte": "img/flerte.ae9e9256.webp", "trio": "img/trio.15d59457.webp", "c1": "img/c1.10a83ad7.webp", "c2": "img/c2.b42dd4f9.webp", "c3": "img/c3.5b4fa338.webp", "a1": "img/a1.a4a70a7c.webp", "a2": "img/a2.592847c1.webp", "a3": "img/a3.8fb1a2f0.webp", "cl2": "img/cl2.5a3e8b43.webp", "cx2": "img/cx2.61248b0c.webp", "fl2": "img/fl2.b9e78716.webp", "limao": "img/limao.ed2b7088.webp", "morangos": "img/morangos.5172e6d0.webp", "caxinde_f": "img/caxinde_f.c838f99d.webp", "uvas": "img/uvas.b97e3dd3.webp", "frutas": "img/frutas.a9eedf11.webp", "ig1": "img/ig1.a2da9f99.webp", "ig3": "img/ig3.6e167472.webp", "ig6": "img/ig6.dac5f52d.webp", "ig7": "img/ig7.da95d457.webp", "ig11": "img/ig11.53db9177.webp", "premio": "img/premio.f09eb09a.webp", "pdc": "img/pdc.ca787c78.webp", "fatia_limao": "img/fatia_limao.4ed145fe.webp", "fatia_laranja": "img/fatia_laranja.1fedb482.webp", "bagi": "img/bagi.964a5ba4.webp", "cg_b": "img/cg_b.6f0ea991.webp", "cg_a": "img/cg_a.932bd30c.webp", "trio26_g": "img/trio26_g.1d1889f1.webp"};
 const GINS={
  classico:{n:"Clássico",c:"var(--classico)",hex:"#1F8C97",tag:"O original",sub:"Zimbro e botânicos locais. Equilibrado, para cocktails ou a sós.",notes:["Zimbro","Cítrico","Seco"],prof:[["Frescura",70],["Doçura",25],["Intensidade",60]],t:"O primeiro brinde à essência de Angola.",s:"O Clássico: zimbro e botânicos locais, equilibrado em cocktail ou puro."},
  caxinde:{n:"Caxinde",c:"var(--caxinde)",hex:"#4F9A5E",tag:"Floral",sub:"Construído sobre o chá de caxinde, com zimbro subtil. Aroma delicado e floral.",notes:["Caxinde","Floral","Fresco"],prof:[["Frescura",85],["Doçura",40],["Intensidade",45]],t:"Caxinde: o chá de Angola num gin.",s:"Delicado e floral, com o caxinde à frente e o zimbro a acompanhar."},
@@ -1091,7 +1126,7 @@ document.addEventListener("click",async e=>{const el=e.target.closest("[data-act
   else if(a==="calprev"||a==="calnext"){B.m+=a==="calnext"?1:-1;if(B.m<0){B.m=11;B.y--}if(B.m>11){B.m=0;B.y++}renderCal()}
   else if(a==="bnew"){$("#bdone").hidden=true;$("#bform").hidden=false;B.slot=null;renderSlots()}
   else if(a==="bcopy"){const t=confText($("#bdone")._r);(navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(()=>toast("Detalhes copiados"),()=>toast("Selecciona e copia o texto do bilhete"))}
-  else if(a==="premio"){$("#lb-img").src=IMG.premio;$("#lb-img").alt="AXI Clássico com a Medalha de Prata Spirits Selection 2026";$("#lb-c").textContent="Medalha de Prata · Spirits Selection by Concours Mondial de Bruxelles 2026";$("#lb").classList.add("solo");$("#lb").hidden=false}
+  else if(a==="premio"||a==="foto"){const k=a==="foto"?id:"premio",c=el.dataset.c||"Medalha de Prata · Spirits Selection by Concours Mondial de Bruxelles 2026";$("#lb-img").src=IMG[k];$("#lb-img").alt=c;$("#lb-c").textContent=c;$("#lb").classList.add("solo");$("#lb").hidden=false}
   else if(a==="lb")lbShow(+id);else if(a==="lbx")$("#lb").hidden=true;else if(a==="lbp")lbShow(LBI-1);else if(a==="lbn")lbShow(LBI+1)
   else if(a==="admmail"){el.disabled=true;await admMail(id);el.disabled=false}
   else if(a==="admcancel"){const r=ADM.find(x=>x._p===id);if(!r)return;if(el.dataset.c!=="1"){el.dataset.c="1";el.textContent="Confirmar cancelamento";return}
@@ -1100,11 +1135,29 @@ document.addEventListener("click",async e=>{const el=e.target.closest("[data-act
 });
 document.addEventListener("keydown",e=>{if($("#lb").hidden)return;if(e.key==="Escape")$("#lb").hidden=true;if(e.key==="ArrowRight")lbShow(LBI+1);if(e.key==="ArrowLeft")lbShow(LBI-1)});
 renderExps();renderCal();renderSlots();
+/* faixa de publicidade: uma marca de cada vez */
+(function(){const ADS=[
+  ["AXI Lwanda","#B8933F","#141414","O primeiro gin premium de Angola, destilado na Ilha do Cabo","Medalha de Prata 2026","https://www.axilwanda.com/"],
+  ["KizuaJá","#ED1C24","#fff","Entregas com energia em Luanda, todos os dias das 10h às 22h","Entregas com energia","#produtos"],
+  ["Candongueiro Gin","#1F3FD1","#fff","Mais que um gin, um movimento. Em lata de 700 ml, Branco e Azul","Gin em lata de 700 ml","https://www.candongueiro.com/"],
+  ["AXI Gin School","#1F8C97","#fff","Provas, masterclasses e cocktails na casa da AXI, de quinta a domingo","Marca a tua sessão","#school"],
+  ["Pau de Cabinda Gin","#B5651D","#fff","Single botanical angolano, cor âmbar. Novo na loja por 25.000 Kz","Novo na loja","#novidades"],
+  ["EventBoxAngola","#FFD600","#141414","Aplicações, IA e soluções para empresas. A casa da KizuaJá","Apps e IA à medida","https://www.eventboxangola.ao/"]];
+  const box=$("#adv"),dots=$("#advdots");
+  box.innerHTML=ADS.map((a,i)=>{const ext=a[5][0]!=="#";return `<a class="ad${i?"":" on"}" href="${a[5]}" ${ext?'target="_blank" rel="noopener"':`data-act="go" data-id="${a[5]}"`} tabindex="${i?-1:0}"><b style="background:${a[1]};color:${a[2]}">${a[0]}</b><span class="lg">${a[3]}</span><span class="sm">${a[4]}</span><i>${ext?"Visitar":"Ver"} →</i></a>`}).join("");
+  dots.innerHTML=ADS.map((_,i)=>`<span class="${i?"":"on"}"></span>`).join("");
+  const els=[...box.children],ds=[...dots.children];let k=0,hold=false,vis=true;
+  const show=n=>{els[k].classList.remove("on");els[k].classList.add("out");els[k].tabIndex=-1;ds[k].classList.remove("on");const o=els[k];setTimeout(()=>o.classList.remove("out"),600);k=(n+ADS.length)%ADS.length;els[k].classList.add("on");els[k].tabIndex=0;ds[k].classList.add("on")};
+  const bar=$("#adbar");bar.addEventListener("pointerenter",()=>hold=true);bar.addEventListener("pointerleave",()=>hold=false);bar.addEventListener("focusin",()=>hold=true);bar.addEventListener("focusout",()=>hold=false);
+  new IntersectionObserver(e=>vis=e[0].isIntersecting).observe(bar);
+  setInterval(()=>{if(hold||!vis||document.hidden)return;show(k+1)},4500)})();
 /* modo telemóvel */
 (function(){const H=document.documentElement,isM=()=>H.classList.contains("mob");
   const lbl=()=>{$("#vista").textContent=isM()?"Ver versão computador":"Ver versão telemóvel"};lbl();
   const srch=$("header.top .search"),home=srch.parentNode,anchor=srch.nextElementSibling;
-  function place(){if(isM()){const sh=$("#produtos .shead");if(sh&&srch.previousElementSibling!==sh)sh.after(srch)}else if(srch.parentNode!==home)home.insertBefore(srch,anchor)}
+  const zl=$("#zl"),zhome=zl.parentNode,zline=$("#s-zona").closest(".l");
+  function place(){if(isM()){const sh=$("#produtos .shead");if(sh&&srch.previousElementSibling!==sh)sh.after(srch);if(zl.nextElementSibling!==zline)zline.before(zl)}
+    else{if(srch.parentNode!==home)home.insertBefore(srch,anchor);if(zl.parentNode!==zhome)zhome.prepend(zl)}}
   place();
   if(!H.dataset.pref&&H.dataset.auto==="d"){matchMedia("(max-width:760px)").addEventListener("change",e=>{H.classList.toggle("mob",e.matches);place();lbl()})}
   document.addEventListener("click",e=>{const b=e.target.closest("[data-act=vista]");if(!b)return;const m=!isM();
