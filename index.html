@@ -607,6 +607,47 @@ section.block{scroll-margin-top:calc(110px + var(--adh))}#marcar{scroll-margin-t
 .school .intro::before{content:"";position:absolute;inset:0;background:url(img/alambiques.95ce1302.webp) 45% 22%/cover no-repeat;opacity:.3;filter:grayscale(.3) contrast(1.08);-webkit-mask-image:linear-gradient(105deg,rgba(0,0,0,.45) 0%,#000 65%);mask-image:linear-gradient(105deg,rgba(0,0,0,.45) 0%,#000 65%);pointer-events:none}
 .school .intro>*{position:relative;z-index:1}
 .mob .xmark::after{font-size:11rem}
+
+/* ===== telemóvel: arrumação ===== */
+.more{grid-column:1/-1;justify-self:center;margin-top:6px;background:var(--ink);color:#fff;border:0;border-radius:99px;padding:13px 26px;font:700 .9rem Montserrat,sans-serif;cursor:pointer}
+.mob{--adh:48px}
+.mob .adv .av{width:32px;height:32px}.mob .adv .ad i{padding:5px 10px;font-size:.7rem}
+.mob header.top .wrap.row{padding-block:6px}
+.mob header.top .brands img.kj{height:30px}.mob header.top .brands img.axi{height:22px}
+.mob #produtos nav.nav{position:static;background:none;border:0;margin:0 -16px 10px;padding:0}
+.mob #produtos nav.nav .wrap{padding:0 16px}
+.mob #produtos nav.nav .promo,.mob #produtos nav.nav [data-act=go]{display:none}
+.mob #produtos .tabs{margin-bottom:10px;display:flex;flex-wrap:nowrap;overflow-x:auto;gap:6px;scrollbar-width:none}.mob #produtos .tabs::-webkit-scrollbar{display:none}.mob #produtos .tabs>*{flex:none;white-space:nowrap}.mob #produtos .tabs button{padding:8px 14px;font-size:.8rem}.mob #produtos nav.nav{border-top:0!important}.mob #produtos nav.nav .wrap{border:0}
+.mob section.block{padding-block:28px 0;scroll-margin-top:calc(70px + var(--adh))}
+.mob #marcar{scroll-margin-top:calc(80px + var(--adh))}
+.mob .shead{margin-bottom:12px}.mob .shead h2{font-size:1.55rem}
+/* abertura mais curta */
+.mob .hero .copy{padding-top:12px}.mob .hero h1{font-size:1.75rem}.mob .hero p{font-size:.88rem}
+.mob .stage{height:280px}.mob .stage .bottle{height:236px;bottom:20px}
+/* gama: cartões mais baixos */
+.mob .range>*{flex-basis:72%}
+.mob .gin .pic{aspect-ratio:1/1}.mob .gin h3{font-size:1.35rem}.mob .gin .info{padding:12px 14px 14px}
+/* cartões de produto compactos */
+.mob .card .info,.mob .card .body{padding:10px 10px 12px}
+.mob .card h3,.mob .card h4{font-size:.9rem}
+/* novidades em lista horizontal compacta */
+.mob .soon>*{flex-basis:84%}
+.mob .soon .sc{grid-template-columns:110px 1fr!important;align-items:center;gap:12px;padding:12px}
+.mob .soon .sc .sil{height:150px!important}
+.mob .soon .sc h3{font-size:1rem}.mob .soon .sc p{font-size:.78rem;margin:3px 0 6px}.mob .soon .sc .tg{display:none}
+.mob .soon .sc .row{gap:8px}.mob .soon .sc .ig{display:none}.mob .soon .sc .mini{padding:8px 12px;font-size:.74rem}
+/* parceria: imagens lado a lado e mais baixas */
+.mob .duo .pics{min-height:250px}
+.mob .duo .pics .m{height:200px}
+/* gin school e reservas */
+.mob .space>*{height:200px}
+.mob .exps{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:10px;margin-inline:-16px;padding:0 16px 8px;scrollbar-width:none}
+.mob .exps::-webkit-scrollbar{display:none}.mob .exps>*{flex:0 0 80%;scroll-snap-align:center}
+/* rodapé arrumado em duas colunas */
+.mob footer .wrap{grid-template-columns:1fr;gap:22px}.mob footer .wrap>*{min-width:0}.mob footer .cp{overflow-wrap:anywhere}
+.mob footer .wrap>div:first-child{grid-column:1/-1}
+.mob footer p{font-size:.78rem}
+.mob footer .copy{flex-direction:column;align-items:flex-start;gap:8px}
 </style>
 <script>
 /* versão telemóvel: abre sozinha em telemóveis; o rodapé deixa trocar */
@@ -927,7 +968,8 @@ function renderNav(){
   $("#favbtn").setAttribute("aria-pressed",S.onlyFav);
   const nf=Object.keys(S.fav).length;$("#favcount").hidden=!nf;$("#favcount").textContent=nf}
 function renderGrid(){const L=list(),g=$("#grid");
-  g.innerHTML=L.map(card).join("")||`<p class="empty">Nada por aqui${S.onlyFav?": ainda não guardaste favoritos nesta selecção":""}. Experimenta outra secção ou limpa os filtros.</p>`;
+  const cut=document.documentElement.classList.contains("mob")&&!S.more&&!S.q&&L.length>8;
+  g.innerHTML=(cut?L.slice(0,6):L).map(card).join("")+(cut?`<button class="more" data-act="more">Ver todos os ${L.length} produtos</button>`:"")||`<p class="empty">Nada por aqui${S.onlyFav?": ainda não guardaste favoritos nesta selecção":""}. Experimenta outra secção ou limpa os filtros.</p>`;
   $("#ptitle").textContent=S.onlyFav?"Os teus favoritos":S.onlyPack?"Packs em promoção":S.cat==="todos"?"Garrafas e packs":S.cat==="novos"?"Candongueiro e Pau de Cabinda":"AXI "+CN[S.cat];
   const f=S.cat!=="todos"||S.onlyFav||S.onlyPack||S.q||S.tab!=="todos";
   $("#state").innerHTML=`${L.length} ${L.length===1?"produto":"produtos"}${f?` <button data-act="clear">Limpar filtros</button>`:""}`;
@@ -976,6 +1018,7 @@ document.addEventListener("click",e=>{const cp=e.target.closest("[data-copy]");i
   else if(a==="favs"){S.onlyFav=!S.onlyFav;S.onlyPack=false;S.cat="todos";S.tab="todos";renderGrid();go("#produtos")}
   else if(a==="clear"){S.cat="todos";S.tab="todos";S.q="";$("#q").value="";S.onlyFav=S.onlyPack=false;renderGrid()}
   else if(a==="slide")setSlide(+id,true)
+  else if(a==="more"){S.more=true;renderGrid()}
   else if(a==="avisa"&&API&&!el.dataset.f){el.dataset.f=1;const f=document.createElement("form");f.className="avf";f.innerHTML='<input placeholder="Email ou telefone" aria-label="Email ou telefone para aviso" required minlength="6"><button class="mini">OK</button>';el.replaceWith(f);f.querySelector("input").focus();
     f.addEventListener("submit",async ev=>{ev.preventDefault();const v=f.querySelector("input").value.trim();try{const rs=await fetch(API+"/avisos",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({produto:id,contacto:v})});if(!rs.ok)throw 0;f.innerHTML='<span class="ok">Combinado ✓</span>';toast("Avisamos-te quando o "+id+" chegar à loja")}catch(_){toast("Não foi possível guardar. Tenta de novo.")}})}
   else if(a==="avisa"){el.textContent="Combinado ✓";el.disabled=true;toast("Avisamos-te quando o AXI "+id+" chegar à loja")}
@@ -1198,8 +1241,9 @@ renderExps();renderCal();renderSlots();
   const lbl=()=>{$("#vista").textContent=isM()?"Ver versão computador":"Ver versão telemóvel"};lbl();
   const srch=$("header.top .search"),home=srch.parentNode,anchor=srch.nextElementSibling;
   const zl=$("#zl"),zhome=zl.parentNode,zline=$("#s-zona").closest(".l");
-  function place(){if(isM()){const sh=$("#produtos .shead");if(sh&&srch.previousElementSibling!==sh)sh.after(srch);if(zl.nextElementSibling!==zline)zline.before(zl)}
-    else{if(srch.parentNode!==home)home.insertBefore(srch,anchor);if(zl.parentNode!==zhome)zhome.prepend(zl)}}
+  const nav=$("nav.nav"),nhome=nav.parentNode,nnext=nav.nextElementSibling;
+  function place(){if(isM()){const sh=$("#produtos .shead");if(sh&&srch.previousElementSibling!==sh)sh.after(srch);if(nav.previousElementSibling!==srch)srch.after(nav);if(zl.nextElementSibling!==zline)zline.before(zl)}
+    else{if(srch.parentNode!==home)home.insertBefore(srch,anchor);if(nav.parentNode!==nhome)nhome.insertBefore(nav,nnext);if(zl.parentNode!==zhome)zhome.prepend(zl)}}
   place();
   if(!H.dataset.pref&&H.dataset.auto==="d"){matchMedia("(max-width:760px)").addEventListener("change",e=>{H.classList.toggle("mob",e.matches);place();lbl()})}
   document.addEventListener("click",e=>{const b=e.target.closest("[data-act=vista]");if(!b)return;const m=!isM();
