@@ -43,8 +43,8 @@ h2 em{font-style:italic;color:var(--gold)}
 .xbg{position:relative;isolation:isolate}
 .xbg::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.55;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'%3E%3Cpath d='M14 2 26 14 14 26 2 14Z' fill='none' stroke='%23141414' stroke-opacity='.07'/%3E%3C/svg%3E")}
-.xmark{position:absolute;pointer-events:none;z-index:-1;width:min(60vw,560px);aspect-ratio:1;opacity:.07;background:
-  linear-gradient(135deg,transparent 0 46%,var(--ink) 46% 54%,transparent 54%),linear-gradient(45deg,transparent 0 46%,var(--ink) 46% 54%,transparent 54%)}
+.xmark{position:absolute;pointer-events:none;z-index:-1;width:auto;aspect-ratio:auto}
+.xmark::after{content:"AXI";display:block;font:700 clamp(10rem,30vw,26rem)/.8 "Cormorant Garamond",Georgia,serif;letter-spacing:.02em;color:var(--ink);opacity:.06;white-space:nowrap}
 .reveal{transition:transform .7s cubic-bezier(.2,.8,.2,1),opacity .7s;opacity:1}
 .reveal:not(.in){transform:translateY(22px);opacity:.92}
 
@@ -606,6 +606,7 @@ section.block{scroll-margin-top:calc(110px + var(--adh))}#marcar{scroll-margin-t
 /* Gin School: alambiques como marca de água esbatida */
 .school .intro::before{content:"";position:absolute;inset:0;background:url(img/alambiques.95ce1302.webp) 45% 22%/cover no-repeat;opacity:.3;filter:grayscale(.3) contrast(1.08);-webkit-mask-image:linear-gradient(105deg,rgba(0,0,0,.45) 0%,#000 65%);mask-image:linear-gradient(105deg,rgba(0,0,0,.45) 0%,#000 65%);pointer-events:none}
 .school .intro>*{position:relative;z-index:1}
+.mob .xmark::after{font-size:11rem}
 </style>
 <script>
 /* versão telemóvel: abre sozinha em telemóveis; o rodapé deixa trocar */
@@ -693,7 +694,7 @@ if(pref==="d"&&auto){var v=document.querySelector('meta[name=viewport]');if(v)v.
   </div>
 </div>
 
-<section class="block wrap xbg" id="gama"><div class="xmark" style="right:-12%;top:-10%"></div>
+<section class="block wrap xbg" id="gama"><div class="xmark" style="right:-4%;top:-2%" aria-hidden="true"></div>
   <div class="shead"><div><span class="eyebrow">A gama AXI Lwanda</span><h2>Três gins, <em>uma essência</em></h2></div><a class="lnk" href="#produtos">Ver todos os produtos <svg class="i"><use href="#i-arrow"/></svg></a></div>
   <div class="range" id="range"></div>
 </section>
@@ -756,7 +757,7 @@ if(pref==="d"&&auto){var v=document.querySelector('meta[name=viewport]');if(v)v.
   </div>
 </section>
 
-<section class="block wrap xbg" id="servir"><div class="xmark" style="left:-14%;top:0"></div>
+<section class="block wrap xbg" id="servir"><div class="xmark" style="left:-6%;top:2%" aria-hidden="true"></div>
   <div class="shead"><div><span class="eyebrow">Como servir</span><h2>Três serviços, <em>três momentos</em></h2></div></div>
   <div class="serve" id="serve"></div>
 </section>
